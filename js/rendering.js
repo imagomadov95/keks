@@ -52,5 +52,5 @@ const show = (picture) => {
   bigPicture.classList.remove("hidden");
   renderComments(picture.comments);
 };
-
+console.log(photos);
 export { show };
