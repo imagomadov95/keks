@@ -53,4 +53,4 @@ const show = (picture) => {
   renderComments(picture.comments);
 };
 console.log(photos);
-export { show };
+export { show, body };
