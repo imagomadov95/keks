@@ -1,4 +1,3 @@
-import { addPhotes, photos } from "./data.js";
 import { show } from "./rendering.js";
 
 let picturesList = document.querySelector(".pictures");
@@ -21,7 +20,7 @@ const renderPhoto = (picture) => {
   return task;
 };
 
-const renderPhotos = () => {
+const renderPhotos = (photos) => {
   let fragment = document.createDocumentFragment();
   photos.forEach((photo) => {
     fragment.appendChild(renderPhoto(photo));

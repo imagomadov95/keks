@@ -1,6 +1,3 @@
-import { renderPhotos } from "./preview.js";
-import { addPhotes, photos } from "./data.js";
-
 const bigPicture = document.querySelector(".big-picture");
 const body = document.querySelector("body");
 const bigPictureCancel = document.querySelector(".big-picture__cancel");
@@ -52,5 +49,10 @@ const show = (picture) => {
   bigPicture.classList.remove("hidden");
   renderComments(picture.comments);
 };
-console.log(photos);
+
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === ("Escape" || "Esc")) {
+    onBigPictureCloseClick();
+  }
+});
 export { show, body };

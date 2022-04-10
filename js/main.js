@@ -1,6 +1,6 @@
-import { addPhotes, photos } from "./data.js";
+import { getData } from "./api.js";
 import { renderPhotos } from "./preview.js";
 import "./editor.js";
 import "./validation.js";
 
-renderPhotos();
+getData(renderPhotos);
