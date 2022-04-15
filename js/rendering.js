@@ -8,12 +8,14 @@ socialCommentCount.classList.add("hidden");
 commentsLoader.classList.add("hidden");
 
 const commentList = document.querySelector(".social__comments");
+const socialFooterText = document.querySelector(".social__footer-text");
 
 const onBigPictureCloseClick = () => {
   bigPicture.classList.add("hidden");
   body.classList.remove("modal-open");
   bigPictureCancel.removeEventListener("click", onBigPictureCloseClick);
   commentList.innerHTML = "";
+  socialFooterText.value = "";
 };
 
 const commentsTemplate = document

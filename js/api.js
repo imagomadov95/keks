@@ -1,22 +1,19 @@
-import { showAlert } from "./util.js";
-const imgUploadForm = document.querySelector(".img-upload__form");
-
-const getData = (onSuccess) => {
-  fetch("https://23.javascript.pages.academy/kekstagram/data")
-    .then((response) => response.json())
-    .then((photos) => {
-      onSuccess(photos);
-      console.log(photos.ok);
-      /* if (response.ok) {
-        onSuccess(photos);
-      } else {
-        showAlert("Не удалось загрузить изоброжение");
-      }
-
-      .catch(() => {
-        showAlert("Не удалось загрузить изоброжение");
-      }); */
-    });
+const Urls = {
+  GET: "https://22.javascript.pages.academy/kekstagram/data",
+  POST: "https://22.javascript.pages.academy/kekstagram",
 };
 
-export { getData };
+const request = (onSuccess, onError, method, data) => {
+  fetch(Urls[method], {
+    method: method,
+    body: data,
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      onSuccess(response);
+    })
+    .catch(() => {
+      onError();
+    });
+};
+export { request };

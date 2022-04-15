@@ -1,6 +1,10 @@
-import { getData } from "./api.js";
 import { renderPhotos } from "./preview.js";
+import { request } from "./api.js";
 import "./editor.js";
 import "./validation.js";
 
-getData(renderPhotos);
+const onError = () => {
+  showError("Ошибка загрузки, попробуйте еще раз", "Закрыть");
+};
+
+request(renderPhotos, onError, "GET");

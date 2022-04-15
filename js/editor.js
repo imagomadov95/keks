@@ -1,5 +1,7 @@
 import { body } from "./rendering.js";
-
+import { request } from "./api.js";
+import { showError, showSuccess } from "./alerts.js";
+import { effectLevel, lastClass } from "./effects.js";
 const Keys = {
   ESC: "Esc",
   ESCAPE: "Escape",
@@ -14,6 +16,8 @@ const Scale = {
 const uploadFile = document.querySelector("#upload-file");
 const uploadOverlay = document.querySelector(".img-upload__overlay");
 const imgUploadCancel = document.querySelector(".img-upload__cancel");
+let inputHashtag = document.querySelector(".text__hashtags");
+const textDescription = document.querySelector("text__description");
 
 const scaleImg = () => {
   if (parseInt(scaleControlValue.value) === 100) {
@@ -37,8 +41,9 @@ const closeModal = () => {
   uploadOverlay.classList.add("hidden");
   body.classList.remove("modal-open");
   uploadFile.value = "";
+  inputHashtag.value = "";
 };
-import { effectLevel, lastClass } from "./effects.js";
+
 imgUploadCancel.addEventListener("click", () => {
   closeModal();
 });
@@ -87,4 +92,22 @@ buttonMinus.addEventListener("click", () => {
   scaleValue.value = scale + "%";
   scale = scale / 100;
   imagePreview.style.transform = "scale(" + scale + ")";
+});
+// Отправляем фотку
+const uploadForm = document.querySelector(".img-upload__form");
+
+const onSuccess = () => {
+  showSuccess("Ура!");
+  closeModal();
+  uploadForm.reset();
+};
+
+const onError = () => {
+  showError("ЧТо-то пошло не так", "Загрузить другой файл");
+};
+
+uploadForm.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+
+  request(onSuccess, onError, "POST", new FormData(evt.target));
 });
