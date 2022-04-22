@@ -5,7 +5,7 @@ const bigPictureCancel = document.querySelector(".big-picture__cancel");
 const socialCommentCount = document.querySelector(".social__comment-count");
 const commentsLoader = document.querySelector(".comments-loader");
 socialCommentCount.classList.add("hidden");
-commentsLoader.classList.add("hidden");
+/* commentsLoader.classList.add("hidden"); */
 
 const commentList = document.querySelector(".social__comments");
 const socialFooterText = document.querySelector(".social__footer-text");
@@ -16,6 +16,7 @@ const onBigPictureCloseClick = () => {
   bigPictureCancel.removeEventListener("click", onBigPictureCloseClick);
   commentList.innerHTML = "";
   socialFooterText.value = "";
+  commentsLoader.classList.remove("hidden");
 };
 
 const commentsTemplate = document
@@ -30,12 +31,40 @@ const renderComment = (comment) => {
   return task;
 };
 
-const renderComments = (comments) => {
-  let fragment = document.createDocumentFragment();
-  comments.forEach((comment) => {
+const removePhotos = () => {
+  const images = document.querySelectorAll(".social__comment");
+  if (images) {
+    images.forEach((element) => {
+      element.remove();
+    });
+  }
+};
+
+const verf = (comments, number, fragment) => {
+  comments.slice(0, number).forEach((comment) => {
     fragment.appendChild(renderComment(comment));
   });
   commentList.appendChild(fragment);
+};
+
+const i = 4;
+const numberComents = (h) => {
+  let f = h + 5;
+  return f;
+};
+
+const renderComments = (comments) => {
+  let fragment = document.createDocumentFragment();
+
+  verf(comments, i, fragment);
+
+  commentsLoader.addEventListener("click", () => {
+    removePhotos();
+    verf(comments, numberComents(10), fragment);
+    if (comments.length) {
+      commentsLoader.classList.add("hidden");
+    }
+  });
 };
 
 const show = (picture) => {
@@ -57,4 +86,5 @@ document.addEventListener("keydown", (evt) => {
     onBigPictureCloseClick();
   }
 });
+
 export { show, body };

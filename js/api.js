@@ -3,6 +3,14 @@ const Urls = {
   POST: "https://22.javascript.pages.academy/kekstagram",
 };
 
+const DEFAULT_PREVIEW_LOAD = 25;
+const RANDOM_PREVIEW_LOAD = 10;
+
+let picturesList = document.querySelector(".pictures");
+
+const filterDiscussed = document.querySelector("#filter-discussed");
+const filterDefault = document.querySelector("#filter-default");
+
 const request = (onSuccess, onError, method, data) => {
   fetch(Urls[method], {
     method: method,
